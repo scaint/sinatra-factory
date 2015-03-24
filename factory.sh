@@ -8,8 +8,11 @@ if [[ -z "$1" ]]; then
   exit 1
 fi
 
-if [[ -d "$1" ]]; then
-  echo 'Target directory already exists'
+if [[ -d "$1" && -n "$(ls -A $1)" ]]; then
+  echo 'Target directory already exists and not empty'
+  exit 1
+elif [[ -f "$1" ]]; then
+  echo "\"$1\" is not a directory"
   exit 1
 fi
 
